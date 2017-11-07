@@ -10,6 +10,8 @@ import pl.adamklimko.kkp.repository.AppUserRepository;
 import pl.adamklimko.kkp.service.AppUserService;
 import pl.adamklimko.kkp.util.UserUtil;
 
+import java.util.List;
+
 import static java.util.Collections.emptyList;
 
 @Service
@@ -29,6 +31,11 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     @Override
     public AppUser findByUsername(String username) {
         return appUserRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<AppUser> findAll() {
+        return appUserRepository.findAll();
     }
 
     @Override

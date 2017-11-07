@@ -26,9 +26,14 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody AppUser user) {
+    public boolean signUp(@RequestBody AppUser user) {
+        final AppUser appUser = appUserService.findByUsername(user.getUsername());
+        if (appUser != null) {
+            return false;
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         appUserService.save(user);
+        return true;
     }
 
     @GetMapping("/profile")
