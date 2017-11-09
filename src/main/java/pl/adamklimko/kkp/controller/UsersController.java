@@ -8,10 +8,14 @@ import pl.adamklimko.kkp.model.user.AppUser;
 import pl.adamklimko.kkp.model.user.Profile;
 import pl.adamklimko.kkp.service.AppUserService;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/users")
 public class UsersController {
-    private AppUserService appUserService;
+    private final AppUserService appUserService;
 
     public UsersController(AppUserService appUserService) {
         this.appUserService = appUserService;
@@ -32,5 +36,15 @@ public class UsersController {
             return null;
         }
         return user.getProfile();
+    }
+
+    @GetMapping("/profiles")
+    public Map<String, Profile> getAllUsersProfiles() {
+        final List<AppUser> users = appUserService.findAll();
+        final Map<String, Profile> usersProfiles = new HashMap<>(users.size());
+        for (AppUser user : users) {
+            usersProfiles.put(user.getUsername(), user.getProfile());
+        }
+        return usersProfiles;
     }
 }
