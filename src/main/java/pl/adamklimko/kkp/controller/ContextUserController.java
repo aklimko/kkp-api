@@ -1,8 +1,5 @@
 package pl.adamklimko.kkp.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.adamklimko.kkp.config.patch.json.Patch;
 import pl.adamklimko.kkp.config.patch.json.PatchRequestBody;
@@ -14,26 +11,13 @@ import pl.adamklimko.kkp.util.UserUtil;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class ContextUserController {
     private final AppUserService appUserService;
     private final ProfileService profileService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(AppUserService appUserService, ProfileService profileService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public ContextUserController(AppUserService appUserService, ProfileService profileService) {
         this.appUserService = appUserService;
         this.profileService = profileService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    @PostMapping("/signup")
-    public boolean signUp(@RequestBody AppUser user) {
-        final AppUser appUser = appUserService.findByUsername(user.getUsername());
-        if (appUser != null) {
-            return false;
-        }
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        appUserService.save(user);
-        return true;
     }
 
     @GetMapping("/profile")
