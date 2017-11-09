@@ -18,8 +18,16 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/profile")
-    public Profile getUserProfile(@PathVariable int id) {
-        final AppUser user = appUserService.findById(id);
+    public Profile getUserProfileById(@PathVariable int id) {
+        return getUserProfile(appUserService.findById(id));
+    }
+
+    @GetMapping("/{username}/profile")
+    public Profile getUserProfileByUsername(@PathVariable String username) {
+        return getUserProfile(appUserService.findByUsername(username));
+    }
+
+    private Profile getUserProfile(AppUser user) {
         if (user == null) {
             return null;
         }
