@@ -15,14 +15,14 @@ public @Data class AppUser {
     private String password;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Profile profile;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private BoughtProducts boughtProducts;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private CleanedRooms cleanedRooms;
 }

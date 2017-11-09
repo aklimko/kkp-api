@@ -9,6 +9,8 @@ public interface AppUserService {
 
     AppUser findByUsername(String username);
 
+    AppUser findById(int id);
+
     List<AppUser> findAll();
 
     void save(AppUser user);

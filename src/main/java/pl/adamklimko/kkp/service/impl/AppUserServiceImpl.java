@@ -39,6 +39,11 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
+    public AppUser findById(int id) {
+        return appUserRepository.findOne(id);
+    }
+
+    @Override
     public void save(AppUser user) {
         appUserRepository.save(user);
     }

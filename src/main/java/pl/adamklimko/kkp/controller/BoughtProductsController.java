@@ -9,7 +9,6 @@ import pl.adamklimko.kkp.service.AppUserService;
 import pl.adamklimko.kkp.service.BoughtProductsService;
 import pl.adamklimko.kkp.util.UserUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
