@@ -21,12 +21,12 @@ public class UsersController {
         this.appUserService = appUserService;
     }
 
-    @GetMapping("/{id}/profile")
+    @GetMapping("/id/{id}/profile")
     public Profile getUserProfileById(@PathVariable int id) {
         return getUserProfile(appUserService.findById(id));
     }
 
-    @GetMapping("/{username}/profile")
+    @GetMapping("/username/{username}/profile")
     public Profile getUserProfileByUsername(@PathVariable String username) {
         return getUserProfile(appUserService.findByUsername(username));
     }
