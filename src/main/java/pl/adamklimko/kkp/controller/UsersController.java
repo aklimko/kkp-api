@@ -1,9 +1,11 @@
 package pl.adamklimko.kkp.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.adamklimko.kkp.model.Views;
 import pl.adamklimko.kkp.model.user.AppUser;
 import pl.adamklimko.kkp.model.user.Profile;
 import pl.adamklimko.kkp.service.AppUserService;
@@ -36,6 +38,12 @@ public class UsersController {
             return null;
         }
         return user.getProfile();
+    }
+
+    @JsonView(Views.Extended.class)
+    @GetMapping("/all")
+    public List<AppUser> getAllUsersData() {
+        return appUserService.findAll();
     }
 
     @GetMapping("/profiles")

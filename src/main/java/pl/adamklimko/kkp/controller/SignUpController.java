@@ -19,7 +19,7 @@ public class SignUpController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @PostMapping("/signup")
+    @PostMapping()
     public boolean signUp(@RequestBody AppUser user) {
         final AppUser appUser = appUserService.findByUsername(user.getUsername());
         if (appUser != null) {
