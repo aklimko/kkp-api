@@ -1,6 +1,7 @@
 package pl.adamklimko.kkp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -14,8 +15,14 @@ public @Data class CleanedRooms {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private int id;
+
+    @JsonView(Views.Basic.class)
     private int bathroom;
+
+    @JsonView(Views.Basic.class)
     private int kitchen;
+
+    @JsonView(Views.Basic.class)
     private int floor;
 
     public void addNewCleanedRooms(CleanedRooms cleanedRooms) {
