@@ -9,7 +9,7 @@ public interface AppUserService {
 
     AppUser findByUsername(String username);
 
-    AppUser findById(int id);
+    AppUser findById(long id);
 
     List<AppUser> findAll();
 

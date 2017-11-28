@@ -2,11 +2,16 @@ package pl.adamklimko.kkp.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.adamklimko.kkp.config.patch.json.Patch;
+import pl.adamklimko.kkp.model.ActionType;
 import pl.adamklimko.kkp.model.BoughtProducts;
+import pl.adamklimko.kkp.model.ProductsEntry;
 import pl.adamklimko.kkp.model.user.AppUser;
 import pl.adamklimko.kkp.model.user.Profile;
 import pl.adamklimko.kkp.service.AppUserService;
 import pl.adamklimko.kkp.service.BoughtProductsService;
+import pl.adamklimko.kkp.service.HistoryService;
+import pl.adamklimko.kkp.service.ProductsEntryService;
+import pl.adamklimko.kkp.util.HistoryUtil;
 import pl.adamklimko.kkp.util.UserUtil;
 
 import java.util.HashMap;
@@ -18,10 +23,14 @@ import java.util.Map;
 public class BoughtProductsController {
     private final AppUserService appUserService;
     private final BoughtProductsService boughtProductsService;
+    private final ProductsEntryService productsEntryService;
+    private final HistoryService historyService;
 
-    public BoughtProductsController(AppUserService appUserService, BoughtProductsService boughtProductsService) {
+    public BoughtProductsController(AppUserService appUserService, BoughtProductsService boughtProductsService, ProductsEntryService productsEntryService, HistoryService historyService) {
         this.appUserService = appUserService;
         this.boughtProductsService = boughtProductsService;
+        this.productsEntryService = productsEntryService;
+        this.historyService = historyService;
     }
 
     @GetMapping("/all")
@@ -59,8 +68,12 @@ public class BoughtProductsController {
         } else {
             userBoughtProducts.addNewBoughtProducts(boughtProducts);
         }
+
         final BoughtProducts boughtProductsAfterAddition = user.getBoughtProducts();
-        boughtProductsService.save(boughtProductsAfterAddition);
+//        boughtProductsService.save(boughtProductsAfterAddition);
+//        productsEntryService.save(boughtProducts);
+        ProductsEntry productsEntry = new ProductsEntry(boughtProducts);
+        historyService.save(HistoryUtil.getHistoryEntry(user, productsEntry, null, ActionType.DONE));
         return boughtProductsAfterAddition;
     }
 }

@@ -39,7 +39,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public AppUser findById(int id) {
+    public AppUser findById(long id) {
         return appUserRepository.findOne(id);
     }
 

@@ -12,7 +12,7 @@ public @Data class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private Integer id;
+    private long id;
 
     @JsonView(Views.Basic.class)
     private String fullName;

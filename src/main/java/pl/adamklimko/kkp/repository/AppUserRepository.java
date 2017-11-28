@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import pl.adamklimko.kkp.model.user.AppUser;
 
 @Repository
-public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     AppUser findByUsername(String username);
 }

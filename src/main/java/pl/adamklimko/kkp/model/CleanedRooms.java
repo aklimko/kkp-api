@@ -14,7 +14,7 @@ public @Data class CleanedRooms {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private int id;
+    private long id;
 
     @JsonView(Views.Basic.class)
     private int bathroom;

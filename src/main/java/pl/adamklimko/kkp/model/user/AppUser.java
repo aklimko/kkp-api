@@ -13,7 +13,7 @@ import javax.persistence.*;
 public @Data class AppUser {
     @JsonIgnore
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @JsonView(Views.Basic.class)
     private String username;
@@ -26,7 +26,7 @@ public @Data class AppUser {
     private Profile profile;
 
     @JsonView(Views.Extended.class)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BoughtProducts boughtProducts;
 
     @JsonView(Views.Extended.class)
