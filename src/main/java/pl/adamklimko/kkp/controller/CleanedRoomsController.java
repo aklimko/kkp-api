@@ -2,7 +2,7 @@ package pl.adamklimko.kkp.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.adamklimko.kkp.config.patch.json.Patch;
-import pl.adamklimko.kkp.model.CleanedRooms;
+import pl.adamklimko.kkp.model.rooms.CleanedRooms;
 import pl.adamklimko.kkp.model.user.AppUser;
 import pl.adamklimko.kkp.service.AppUserService;
 import pl.adamklimko.kkp.service.BoughtProductsService;

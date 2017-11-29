@@ -2,7 +2,7 @@ package pl.adamklimko.kkp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.adamklimko.kkp.model.CleanedRooms;
+import pl.adamklimko.kkp.model.rooms.CleanedRooms;
 import pl.adamklimko.kkp.repository.AppUserRepository;
 import pl.adamklimko.kkp.repository.CleanedRoomsRepository;
 import pl.adamklimko.kkp.service.CleanedRoomsService;

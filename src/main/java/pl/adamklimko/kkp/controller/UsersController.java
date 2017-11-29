@@ -41,7 +41,7 @@ public class UsersController {
     }
 
     @JsonView(Views.Extended.class)
-    @GetMapping("/all")
+    @GetMapping()
     public List<AppUser> getAllUsersData() {
         return appUserService.findAll();
     }

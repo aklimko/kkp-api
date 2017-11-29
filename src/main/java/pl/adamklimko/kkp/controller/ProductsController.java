@@ -3,14 +3,12 @@ package pl.adamklimko.kkp.controller;
 import org.springframework.web.bind.annotation.*;
 import pl.adamklimko.kkp.config.patch.json.Patch;
 import pl.adamklimko.kkp.model.ActionType;
-import pl.adamklimko.kkp.model.BoughtProducts;
-import pl.adamklimko.kkp.model.ProductsEntry;
+import pl.adamklimko.kkp.model.products.BoughtProducts;
+import pl.adamklimko.kkp.model.products.MissingProducts;
+import pl.adamklimko.kkp.model.products.ProductsEntry;
 import pl.adamklimko.kkp.model.user.AppUser;
 import pl.adamklimko.kkp.model.user.Profile;
-import pl.adamklimko.kkp.service.AppUserService;
-import pl.adamklimko.kkp.service.BoughtProductsService;
-import pl.adamklimko.kkp.service.HistoryService;
-import pl.adamklimko.kkp.service.ProductsEntryService;
+import pl.adamklimko.kkp.service.*;
 import pl.adamklimko.kkp.util.HistoryUtil;
 import pl.adamklimko.kkp.util.UserUtil;
 
@@ -19,17 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/bought_products")
-public class BoughtProductsController {
+@RequestMapping("/products")
+public class ProductsController {
     private final AppUserService appUserService;
     private final BoughtProductsService boughtProductsService;
-    private final ProductsEntryService productsEntryService;
+    private final MissingProductsService missingProductsService;
     private final HistoryService historyService;
 
-    public BoughtProductsController(AppUserService appUserService, BoughtProductsService boughtProductsService, ProductsEntryService productsEntryService, HistoryService historyService) {
+    public ProductsController(AppUserService appUserService, BoughtProductsService boughtProductsService, MissingProductsService missingProductsService, HistoryService historyService) {
         this.appUserService = appUserService;
         this.boughtProductsService = boughtProductsService;
-        this.productsEntryService = productsEntryService;
+        this.missingProductsService = missingProductsService;
         this.historyService = historyService;
     }
 
@@ -53,13 +51,13 @@ public class BoughtProductsController {
         return usersBoughtProducts;
     }
 
-    @GetMapping()
+    @GetMapping("bought")
     public BoughtProducts getBoughtProducts() {
         return boughtProductsService.find();
     }
 
-    @PatchMapping()
-    @Patch(id = Integer.class, service = BoughtProductsService.class)
+    @PatchMapping("bought")
+    @Patch(id = Long.class, service = BoughtProductsService.class)
     public BoughtProducts patchBoughtProducts(@RequestBody BoughtProducts boughtProducts) {
         final AppUser user = appUserService.findByUsername(UserUtil.getUsernameFromContext());
         final BoughtProducts userBoughtProducts = user.getBoughtProducts();
@@ -69,11 +67,36 @@ public class BoughtProductsController {
             userBoughtProducts.addNewBoughtProducts(boughtProducts);
         }
 
+        final MissingProducts missingProducts = missingProductsService.find();
+        if (missingProducts != null) {
+            missingProducts.removeMissingProducts(boughtProducts);
+        }
+
         final BoughtProducts boughtProductsAfterAddition = user.getBoughtProducts();
-//        boughtProductsService.save(boughtProductsAfterAddition);
-//        productsEntryService.save(boughtProducts);
         ProductsEntry productsEntry = new ProductsEntry(boughtProducts);
         historyService.save(HistoryUtil.getHistoryEntry(user, productsEntry, null, ActionType.DONE));
         return boughtProductsAfterAddition;
+    }
+
+    @GetMapping("missing")
+    public MissingProducts getMissingProducts() {
+        return missingProductsService.find();
+    }
+
+    @PatchMapping("missing")
+    @Patch(id = Long.class, service = MissingProductsService.class)
+    public MissingProducts patchMissingProducts(@RequestBody MissingProducts missingProducts) {
+        final MissingProducts missingProductsFromDb = missingProductsService.find();
+        if (missingProductsFromDb == null) {
+            missingProductsService.save(missingProducts);
+        } else {
+            missingProductsFromDb.addNewMissingProducts(missingProducts);
+            missingProductsService.save(missingProductsFromDb);
+        }
+
+        final AppUser user = appUserService.findByUsername(UserUtil.getUsernameFromContext());
+        final ProductsEntry productsEntry = new ProductsEntry(missingProducts);
+        historyService.save(HistoryUtil.getHistoryEntry(user, productsEntry, null, ActionType.TO_BE_DONE));
+        return missingProductsFromDb;
     }
 }

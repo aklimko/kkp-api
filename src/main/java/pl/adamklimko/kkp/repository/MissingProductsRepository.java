@@ -2,8 +2,8 @@ package pl.adamklimko.kkp.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.adamklimko.kkp.model.Products;
+import pl.adamklimko.kkp.model.products.MissingProducts;
 
 @Repository
-public interface ProductsEntryRepository extends CrudRepository<Products, Long>{
+public interface MissingProductsRepository extends CrudRepository<MissingProducts, Long> {
 }

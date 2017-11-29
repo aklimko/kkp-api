@@ -1,4 +1,4 @@
-package pl.adamklimko.kkp.model;
+package pl.adamklimko.kkp.model.products;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

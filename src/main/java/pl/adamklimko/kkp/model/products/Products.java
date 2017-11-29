@@ -1,8 +1,10 @@
-package pl.adamklimko.kkp.model;
+package pl.adamklimko.kkp.model.products;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
+import pl.adamklimko.kkp.model.Views;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,11 +37,7 @@ public @Data class Products {
     }
 
     public Products(Products products) {
-        this.toiletPaper = products.toiletPaper;
-        this.dishSoap = products.dishSoap;
-        this.trashBag = products.trashBag;
-        this.soap = products.soap;
-        this.sugar = products.sugar;
+        BeanUtils.copyProperties(products, this);
     }
 
     public void addNewBoughtProducts(Products boughtProducts) {
@@ -48,5 +46,21 @@ public @Data class Products {
         this.trashBag += boughtProducts.trashBag;
         this.soap += boughtProducts.soap;
         this.sugar += boughtProducts.sugar;
+    }
+
+    public void addNewMissingProducts(Products missingProducts) {
+        setFieldsToValueWhenMoreThanZero(missingProducts, 1);
+    }
+
+    public void removeMissingProducts(Products boughtProducts) {
+        setFieldsToValueWhenMoreThanZero(boughtProducts, 0);
+    }
+
+    private void setFieldsToValueWhenMoreThanZero(Products products, int value) {
+        if (products.toiletPaper > 0) this.toiletPaper = value;
+        if (products.dishSoap > 0) this.dishSoap = value;
+        if (products.trashBag > 0) this.trashBag = value;
+        if (products.soap > 0) this.soap = value;
+        if (products.sugar > 0) this.sugar = value;
     }
 }

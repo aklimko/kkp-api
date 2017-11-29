@@ -1,6 +1,6 @@
 package pl.adamklimko.kkp.service;
 
-import pl.adamklimko.kkp.model.Products;
+import pl.adamklimko.kkp.model.products.Products;
 
 public interface ProductsEntryService {
     Iterable<Products> find();

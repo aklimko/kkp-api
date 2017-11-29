@@ -3,6 +3,8 @@ package pl.adamklimko.kkp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
+import pl.adamklimko.kkp.model.products.ProductsEntry;
+import pl.adamklimko.kkp.model.rooms.CleanedRooms;
 import pl.adamklimko.kkp.model.user.AppUser;
 
 import javax.persistence.*;

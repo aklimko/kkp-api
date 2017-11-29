@@ -1,8 +1,9 @@
-package pl.adamklimko.kkp.model;
+package pl.adamklimko.kkp.model.rooms;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
+import pl.adamklimko.kkp.model.Views;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -2,20 +2,20 @@ package pl.adamklimko.kkp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.adamklimko.kkp.model.BoughtProducts;
+import pl.adamklimko.kkp.model.products.BoughtProducts;
 import pl.adamklimko.kkp.repository.AppUserRepository;
-import pl.adamklimko.kkp.repository.BoughtProductsRepository;
+import pl.adamklimko.kkp.repository.ProductsRepository;
 import pl.adamklimko.kkp.service.BoughtProductsService;
 import pl.adamklimko.kkp.util.UserUtil;
 
 @Service
 public class BoughtProductsServiceImpl implements BoughtProductsService {
-    private final BoughtProductsRepository boughtProductsRepository;
+    private final ProductsRepository productsRepository;
     private final AppUserRepository appUserRepository;
 
     @Autowired
-    public BoughtProductsServiceImpl(BoughtProductsRepository boughtProductsRepository, AppUserRepository appUserRepository) {
-        this.boughtProductsRepository = boughtProductsRepository;
+    public BoughtProductsServiceImpl(ProductsRepository productsRepository, AppUserRepository appUserRepository) {
+        this.productsRepository = productsRepository;
         this.appUserRepository = appUserRepository;
     }
 
@@ -30,6 +30,6 @@ public class BoughtProductsServiceImpl implements BoughtProductsService {
 
     @Override
     public void save(BoughtProducts boughtProducts) {
-        boughtProductsRepository.save(boughtProducts);
+        productsRepository.save(boughtProducts);
     }
 }
