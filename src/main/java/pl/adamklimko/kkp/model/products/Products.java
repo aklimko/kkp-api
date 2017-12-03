@@ -25,7 +25,7 @@ public @Data class Products {
     private int dishSoap;
 
     @JsonView(Views.Basic.class)
-    private int trashBag;
+    private int trashBags;
 
     @JsonView(Views.Basic.class)
     private int soap;
@@ -43,7 +43,7 @@ public @Data class Products {
     public void addNewBoughtProducts(Products boughtProducts) {
         this.toiletPaper += boughtProducts.toiletPaper;
         this.dishSoap += boughtProducts.dishSoap;
-        this.trashBag += boughtProducts.trashBag;
+        this.trashBags += boughtProducts.trashBags;
         this.soap += boughtProducts.soap;
         this.sugar += boughtProducts.sugar;
     }
@@ -59,7 +59,7 @@ public @Data class Products {
     private void setFieldsToValueWhenMoreThanZero(Products products, int value) {
         if (products.toiletPaper > 0) this.toiletPaper = value;
         if (products.dishSoap > 0) this.dishSoap = value;
-        if (products.trashBag > 0) this.trashBag = value;
+        if (products.trashBags > 0) this.trashBags = value;
         if (products.soap > 0) this.soap = value;
         if (products.sugar > 0) this.sugar = value;
     }
