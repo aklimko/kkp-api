@@ -6,13 +6,15 @@ import pl.adamklimko.kkp.model.History;
 import pl.adamklimko.kkp.model.products.ProductsEntry;
 import pl.adamklimko.kkp.model.user.AppUser;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class HistoryUtil {
 
     public static History getHistoryEntry(AppUser user, ProductsEntry products, CleanedRooms rooms, ActionType actionType) {
         final History historyEntry = new History();
-        historyEntry.setTime(new Date());
+        historyEntry.setTime(LocalDateTime.now());
         historyEntry.setUser(user);
         historyEntry.setProductsEntry(products);
         historyEntry.setRoomsEntry(rooms);

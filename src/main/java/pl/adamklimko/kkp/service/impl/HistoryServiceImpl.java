@@ -14,6 +14,11 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
+    public Iterable<History> findAll() {
+        return historyRepository.findAll();
+    }
+
+    @Override
     public void save(History entry) {
         historyRepository.save(entry);
     }

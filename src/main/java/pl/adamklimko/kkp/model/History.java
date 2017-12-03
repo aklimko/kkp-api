@@ -8,7 +8,7 @@ import pl.adamklimko.kkp.model.rooms.CleanedRooms;
 import pl.adamklimko.kkp.model.user.AppUser;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public @Data class History {
@@ -18,8 +18,8 @@ public @Data class History {
     private long id;
 
     @JsonView(Views.Basic.class)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+//    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime time;
 
     @JsonView(Views.Basic.class)
     @ManyToOne
