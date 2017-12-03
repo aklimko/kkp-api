@@ -60,6 +60,9 @@ public class ProductsController {
     @Patch(id = Long.class, service = BoughtProductsService.class)
     public BoughtProducts patchBoughtProducts(@RequestBody BoughtProducts boughtProducts) {
         final AppUser user = appUserService.findByUsername(UserUtil.getUsernameFromContext());
+        if (user == null) {
+            return null;
+        }
         final BoughtProducts userBoughtProducts = user.getBoughtProducts();
         if (userBoughtProducts == null) {
             user.setBoughtProducts(boughtProducts);
@@ -95,6 +98,9 @@ public class ProductsController {
         }
 
         final AppUser user = appUserService.findByUsername(UserUtil.getUsernameFromContext());
+        if (user == null) {
+            return null;
+        }
         final ProductsEntry productsEntry = new ProductsEntry(missingProducts);
         historyService.save(HistoryUtil.getHistoryEntry(user, productsEntry, null, ActionType.TO_BE_DONE));
         return missingProductsFromDb;
