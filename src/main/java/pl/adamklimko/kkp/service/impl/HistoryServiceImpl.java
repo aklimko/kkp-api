@@ -14,8 +14,8 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public Iterable<History> findAll() {
-        return historyRepository.findAllByOrderByIdDesc();
+    public Iterable<History> findLast20() {
+        return historyRepository.findTop20ByOrderByIdDesc();
     }
 
     @Override

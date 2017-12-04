@@ -20,6 +20,6 @@ public class HistoryController {
     @GetMapping()
     @JsonView(Views.Basic.class)
     public Iterable<History> getHistory() {
-        return historyService.findAll();
+        return historyService.findLast20();
     }
 }

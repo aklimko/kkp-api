@@ -18,7 +18,6 @@ public @Data class History {
     private long id;
 
     @JsonView(Views.Basic.class)
-//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime time;
 
     @JsonView(Views.Basic.class)

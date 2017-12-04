@@ -6,5 +6,5 @@ import pl.adamklimko.kkp.model.History;
 
 @Repository
 public interface HistoryRepository extends CrudRepository<History, Long> {
-    Iterable<History> findAllByOrderByIdDesc();
+    Iterable<History> findTop20ByOrderByIdDesc();
 }
