@@ -1,5 +1,6 @@
 package pl.adamklimko.kkp.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
@@ -18,6 +19,7 @@ public @Data class History {
     private long id;
 
     @JsonView(Views.Basic.class)
+    @JsonFormat(pattern = "dd-MM-YYYY HH:mm")
     private LocalDateTime time;
 
     @JsonView(Views.Basic.class)

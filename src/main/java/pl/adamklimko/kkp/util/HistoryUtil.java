@@ -1,14 +1,12 @@
 package pl.adamklimko.kkp.util;
 
 import pl.adamklimko.kkp.model.ActionType;
-import pl.adamklimko.kkp.model.rooms.CleanedRooms;
 import pl.adamklimko.kkp.model.History;
 import pl.adamklimko.kkp.model.products.ProductsEntry;
+import pl.adamklimko.kkp.model.rooms.CleanedRooms;
 import pl.adamklimko.kkp.model.user.AppUser;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class HistoryUtil {
 
