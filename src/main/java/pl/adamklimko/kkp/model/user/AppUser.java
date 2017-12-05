@@ -3,9 +3,9 @@ package pl.adamklimko.kkp.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
+import pl.adamklimko.kkp.model.Views;
 import pl.adamklimko.kkp.model.products.BoughtProducts;
 import pl.adamklimko.kkp.model.rooms.CleanedRooms;
-import pl.adamklimko.kkp.model.Views;
 
 import javax.persistence.*;
 
@@ -30,6 +30,6 @@ public @Data class AppUser {
     private BoughtProducts boughtProducts;
 
     @JsonView(Views.Extended.class)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private CleanedRooms cleanedRooms;
 }

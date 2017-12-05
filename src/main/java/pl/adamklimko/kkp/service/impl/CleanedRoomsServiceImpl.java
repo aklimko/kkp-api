@@ -21,11 +21,11 @@ public class CleanedRoomsServiceImpl implements CleanedRoomsService {
 
     @Override
     public CleanedRooms find() {
-        final CleanedRooms cleanedRooms = appUserRepository.findByUsername(UserUtil.getUsernameFromContext()).getCleanedRooms();
-        if (cleanedRooms == null) {
+        final CleanedRooms rooms = appUserRepository.findByUsername(UserUtil.getUsernameFromContext()).getCleanedRooms();
+        if (rooms == null) {
             return new CleanedRooms();
         }
-        return cleanedRooms;
+        return rooms;
     }
 
     @Override

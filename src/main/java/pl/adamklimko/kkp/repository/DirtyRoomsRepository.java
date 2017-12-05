@@ -2,8 +2,8 @@ package pl.adamklimko.kkp.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.adamklimko.kkp.model.rooms.Rooms;
+import pl.adamklimko.kkp.model.rooms.DirtyRooms;
 
 @Repository
-public interface CleanedRoomsRepository extends CrudRepository<Rooms, Long> {
+public interface DirtyRoomsRepository extends CrudRepository<DirtyRooms, Long> {
 }

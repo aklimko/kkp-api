@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import pl.adamklimko.kkp.model.products.ProductsEntry;
-import pl.adamklimko.kkp.model.rooms.CleanedRooms;
+import pl.adamklimko.kkp.model.rooms.RoomsEntry;
 import pl.adamklimko.kkp.model.user.AppUser;
 
 import javax.persistence.*;
@@ -32,7 +32,7 @@ public @Data class History {
 
     @JsonView(Views.Basic.class)
     @OneToOne(cascade = CascadeType.ALL)
-    private CleanedRooms roomsEntry;
+    private RoomsEntry roomsEntry;
 
     @JsonView(Views.Basic.class)
     @Enumerated(EnumType.STRING)
