@@ -1,9 +1,6 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+build/
+.gradle/
+.idea/
 application.properties
 SecurityUtils.java
-
-
-### IntelliJ IDEA ###
-.idea
 *.iml
