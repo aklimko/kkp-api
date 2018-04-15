@@ -11,15 +11,16 @@ import pl.adamklimko.kkp.service.HistoryService;
 @RestController
 @RequestMapping("/history")
 public class HistoryController {
-    private final HistoryService historyService;
 
-    public HistoryController(HistoryService historyService) {
-        this.historyService = historyService;
-    }
+  private final HistoryService historyService;
 
-    @GetMapping()
-    @JsonView(Views.Basic.class)
-    public Iterable<History> getHistory() {
-        return historyService.findLast20();
-    }
+  public HistoryController(HistoryService historyService) {
+    this.historyService = historyService;
+  }
+
+  @GetMapping()
+  @JsonView(Views.Basic.class)
+  public Iterable<History> getHistory() {
+    return historyService.findLast20();
+  }
 }

@@ -6,5 +6,6 @@ import pl.adamklimko.kkp.model.user.AppUser;
 
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
-    AppUser findByUsername(String username);
+
+  AppUser findByUsername(String username);
 }

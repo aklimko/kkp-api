@@ -7,19 +7,20 @@ import pl.adamklimko.kkp.service.HistoryService;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {
-    private final HistoryRepository historyRepository;
 
-    public HistoryServiceImpl(HistoryRepository historyRepository) {
-        this.historyRepository = historyRepository;
-    }
+  private final HistoryRepository historyRepository;
 
-    @Override
-    public Iterable<History> findLast20() {
-        return historyRepository.findTop20ByOrderByIdDesc();
-    }
+  public HistoryServiceImpl(HistoryRepository historyRepository) {
+    this.historyRepository = historyRepository;
+  }
 
-    @Override
-    public void save(History entry) {
-        historyRepository.save(entry);
-    }
+  @Override
+  public Iterable<History> findLast20() {
+    return historyRepository.findTop20ByOrderByIdDesc();
+  }
+
+  @Override
+  public void save(History entry) {
+    historyRepository.save(entry);
+  }
 }

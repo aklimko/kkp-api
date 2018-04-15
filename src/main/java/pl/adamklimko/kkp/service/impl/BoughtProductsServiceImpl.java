@@ -10,26 +10,29 @@ import pl.adamklimko.kkp.util.UserUtil;
 
 @Service
 public class BoughtProductsServiceImpl implements BoughtProductsService {
-    private final ProductsRepository productsRepository;
-    private final AppUserRepository appUserRepository;
 
-    @Autowired
-    public BoughtProductsServiceImpl(ProductsRepository productsRepository, AppUserRepository appUserRepository) {
-        this.productsRepository = productsRepository;
-        this.appUserRepository = appUserRepository;
-    }
+  private final ProductsRepository productsRepository;
+  private final AppUserRepository appUserRepository;
 
-    @Override
-    public BoughtProducts find() {
-        final BoughtProducts boughtProducts = appUserRepository.findByUsername(UserUtil.getUsernameFromContext()).getBoughtProducts();
-        if (boughtProducts == null) {
-            return new BoughtProducts();
-        }
-        return boughtProducts;
-    }
+  @Autowired
+  public BoughtProductsServiceImpl(ProductsRepository productsRepository,
+      AppUserRepository appUserRepository) {
+    this.productsRepository = productsRepository;
+    this.appUserRepository = appUserRepository;
+  }
 
-    @Override
-    public void save(BoughtProducts boughtProducts) {
-        productsRepository.save(boughtProducts);
+  @Override
+  public BoughtProducts find() {
+    final BoughtProducts boughtProducts = appUserRepository
+        .findByUsername(UserUtil.getUsernameFromContext()).getBoughtProducts();
+    if (boughtProducts == null) {
+      return new BoughtProducts();
     }
+    return boughtProducts;
+  }
+
+  @Override
+  public void save(BoughtProducts boughtProducts) {
+    productsRepository.save(boughtProducts);
+  }
 }

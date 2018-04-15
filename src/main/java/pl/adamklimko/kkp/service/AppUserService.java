@@ -1,17 +1,17 @@
 package pl.adamklimko.kkp.service;
 
+import java.util.List;
 import pl.adamklimko.kkp.model.user.AppUser;
 
-import java.util.List;
-
 public interface AppUserService {
-    AppUser find();
 
-    AppUser findByUsername(String username);
+  AppUser find();
 
-    AppUser findById(long id);
+  AppUser findByUsername(String username);
 
-    List<AppUser> findAll();
+  AppUser findById(long id);
 
-    void save(AppUser user);
+  List<AppUser> findAll();
+
+  void save(AppUser user);
 }

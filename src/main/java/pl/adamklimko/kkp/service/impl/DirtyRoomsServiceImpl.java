@@ -7,19 +7,21 @@ import pl.adamklimko.kkp.service.DirtyRoomsService;
 
 @Service
 public class DirtyRoomsServiceImpl implements DirtyRoomsService {
-    private final DirtyRoomsRepository dirtyRoomsRepository;
 
-    public DirtyRoomsServiceImpl(DirtyRoomsRepository dirtyRoomsRepository) {
-        this.dirtyRoomsRepository = dirtyRoomsRepository;
-    }
+  private final DirtyRoomsRepository dirtyRoomsRepository;
 
-    @Override
-    public DirtyRooms find() {
-        return dirtyRoomsRepository.findOne(1L);
-    }
+  public DirtyRoomsServiceImpl(DirtyRoomsRepository dirtyRoomsRepository) {
+    this.dirtyRoomsRepository = dirtyRoomsRepository;
+  }
 
-    @Override
-    public void save(DirtyRooms missingProducts) {
-        dirtyRoomsRepository.save(missingProducts);
-    }
+  @Override
+  public DirtyRooms find() {
+    return dirtyRoomsRepository.findById(1L)
+        .orElse(null);
+  }
+
+  @Override
+  public void save(DirtyRooms missingProducts) {
+    dirtyRoomsRepository.save(missingProducts);
+  }
 }

@@ -10,26 +10,29 @@ import pl.adamklimko.kkp.util.UserUtil;
 
 @Service
 public class CleanedRoomsServiceImpl implements CleanedRoomsService {
-    private final CleanedRoomsRepository cleanedRoomsRepository;
-    private final AppUserRepository appUserRepository;
 
-    @Autowired
-    public CleanedRoomsServiceImpl(CleanedRoomsRepository cleanedRoomsRepository, AppUserRepository appUserRepository) {
-        this.cleanedRoomsRepository = cleanedRoomsRepository;
-        this.appUserRepository = appUserRepository;
-    }
+  private final CleanedRoomsRepository cleanedRoomsRepository;
+  private final AppUserRepository appUserRepository;
 
-    @Override
-    public CleanedRooms find() {
-        final CleanedRooms rooms = appUserRepository.findByUsername(UserUtil.getUsernameFromContext()).getCleanedRooms();
-        if (rooms == null) {
-            return new CleanedRooms();
-        }
-        return rooms;
-    }
+  @Autowired
+  public CleanedRoomsServiceImpl(CleanedRoomsRepository cleanedRoomsRepository,
+      AppUserRepository appUserRepository) {
+    this.cleanedRoomsRepository = cleanedRoomsRepository;
+    this.appUserRepository = appUserRepository;
+  }
 
-    @Override
-    public void save(CleanedRooms cleanedRooms) {
-        cleanedRoomsRepository.save(cleanedRooms);
+  @Override
+  public CleanedRooms find() {
+    final CleanedRooms rooms = appUserRepository.findByUsername(UserUtil.getUsernameFromContext())
+        .getCleanedRooms();
+    if (rooms == null) {
+      return new CleanedRooms();
     }
+    return rooms;
+  }
+
+  @Override
+  public void save(CleanedRooms cleanedRooms) {
+    cleanedRoomsRepository.save(cleanedRooms);
+  }
 }

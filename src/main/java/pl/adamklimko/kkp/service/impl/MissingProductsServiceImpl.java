@@ -7,19 +7,21 @@ import pl.adamklimko.kkp.service.MissingProductsService;
 
 @Service
 public class MissingProductsServiceImpl implements MissingProductsService {
-    private final MissingProductsRepository missingProductsRepository;
 
-    public MissingProductsServiceImpl(MissingProductsRepository missingProductsRepository) {
-        this.missingProductsRepository = missingProductsRepository;
-    }
+  private final MissingProductsRepository missingProductsRepository;
 
-    @Override
-    public MissingProducts find() {
-        return missingProductsRepository.findOne(1L);
-    }
+  public MissingProductsServiceImpl(MissingProductsRepository missingProductsRepository) {
+    this.missingProductsRepository = missingProductsRepository;
+  }
 
-    @Override
-    public void save(MissingProducts missingProducts) {
-        missingProductsRepository.save(missingProducts);
-    }
+  @Override
+  public MissingProducts find() {
+    return missingProductsRepository.findById(1L)
+        .orElse(null);
+  }
+
+  @Override
+  public void save(MissingProducts missingProducts) {
+    missingProductsRepository.save(missingProducts);
+  }
 }

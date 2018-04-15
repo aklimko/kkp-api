@@ -7,10 +7,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rooms_entry")
 public class RoomsEntry extends Rooms {
-    public RoomsEntry() {
-    }
 
-    public RoomsEntry(Rooms rooms) {
-        super(rooms);
-    }
+  public RoomsEntry() {
+  }
+
+  public RoomsEntry(Rooms rooms) {
+    super(rooms);
+  }
 }

@@ -6,4 +6,5 @@ import pl.adamklimko.kkp.model.rooms.DirtyRooms;
 
 @Repository
 public interface DirtyRoomsRepository extends CrudRepository<DirtyRooms, Long> {
+
 }

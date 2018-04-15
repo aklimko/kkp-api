@@ -6,4 +6,5 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "dirty_rooms")
 public class DirtyRooms extends Rooms {
+
 }

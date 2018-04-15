@@ -10,26 +10,29 @@ import pl.adamklimko.kkp.util.UserUtil;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
-    private final ProfileRepository profileRepository;
-    private final AppUserRepository appUserRepository;
 
-    @Autowired
-    public ProfileServiceImpl(ProfileRepository profileRepository, AppUserRepository appUserRepository) {
-        this.profileRepository = profileRepository;
-        this.appUserRepository = appUserRepository;
-    }
+  private final ProfileRepository profileRepository;
+  private final AppUserRepository appUserRepository;
 
-    @Override
-    public Profile find() {
-        final Profile profile = appUserRepository.findByUsername(UserUtil.getUsernameFromContext()).getProfile();
-        if (profile == null) {
-            return new Profile();
-        }
-        return profile;
-    }
+  @Autowired
+  public ProfileServiceImpl(ProfileRepository profileRepository,
+      AppUserRepository appUserRepository) {
+    this.profileRepository = profileRepository;
+    this.appUserRepository = appUserRepository;
+  }
 
-    @Override
-    public void save(Profile profile) {
-        profileRepository.save(profile);
+  @Override
+  public Profile find() {
+    final Profile profile = appUserRepository.findByUsername(UserUtil.getUsernameFromContext())
+        .getProfile();
+    if (profile == null) {
+      return new Profile();
     }
+    return profile;
+  }
+
+  @Override
+  public void save(Profile profile) {
+    profileRepository.save(profile);
+  }
 }

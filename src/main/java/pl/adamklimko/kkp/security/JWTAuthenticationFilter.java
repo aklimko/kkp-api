@@ -1,8 +1,21 @@
 package pl.adamklimko.kkp.security;
 
+import static pl.adamklimko.kkp.security.SecurityUtils.EXPIRATION_TIME;
+import static pl.adamklimko.kkp.security.SecurityUtils.SECRET;
+import static pl.adamklimko.kkp.security.SecurityUtils.TOKEN_PREFIX;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,67 +25,58 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import pl.adamklimko.kkp.model.user.AppUser;
 import pl.adamklimko.kkp.model.user.Token;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-
-import static pl.adamklimko.kkp.security.SecurityUtils.*;
-
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private final AuthenticationManager authenticationManager;
 
-    JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+  private final AuthenticationManager authenticationManager;
+
+  JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    this.authenticationManager = authenticationManager;
+  }
+
+  @Override
+  public Authentication attemptAuthentication(HttpServletRequest req,
+      HttpServletResponse res) throws AuthenticationException {
+    try {
+      AppUser creds = new ObjectMapper()
+          .readValue(req.getInputStream(), AppUser.class);
+
+      return authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(
+              creds.getUsername(),
+              creds.getPassword(),
+              new ArrayList<>())
+      );
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
-        try {
-            AppUser creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), AppUser.class);
+  @Override
+  protected void successfulAuthentication(HttpServletRequest req,
+      HttpServletResponse res,
+      FilterChain chain,
+      Authentication auth) throws IOException, ServletException {
+    Date expirationDate = getExpirationDate(EXPIRATION_TIME);
 
-            return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            creds.getUsername(),
-                            creds.getPassword(),
-                            new ArrayList<>())
-            );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    String token = Jwts.builder()
+        .setSubject(((User) auth.getPrincipal()).getUsername())
+        .setExpiration(expirationDate)
+        .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
+        .compact();
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest req,
-                                            HttpServletResponse res,
-                                            FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
-        Date expirationDate = getExpirationDate(EXPIRATION_TIME);
+    Token tokenResponse = new Token();
+    tokenResponse.setToken(TOKEN_PREFIX + token);
+    tokenResponse.setExpirationDate(
+        LocalDateTime.ofInstant(expirationDate.toInstant(), ZoneId.systemDefault()).toString()
+            .replace('T', ' '));
 
-        String token = Jwts.builder()
-                .setSubject(((User) auth.getPrincipal()).getUsername())
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
-                .compact();
+    ObjectMapper objectMapper = new ObjectMapper();
+    String responseBody = objectMapper.writeValueAsString(tokenResponse);
+    res.setContentType("application/json");
+    res.getWriter().write(responseBody);
+  }
 
-        Token tokenResponse = new Token();
-        tokenResponse.setToken(TOKEN_PREFIX + token);
-        tokenResponse.setExpirationDate(LocalDateTime.ofInstant(expirationDate.toInstant(), ZoneId.systemDefault()).toString().replace('T', ' '));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String responseBody = objectMapper.writeValueAsString(tokenResponse);
-        res.setContentType("application/json");
-        res.getWriter().write(responseBody);
-    }
-
-    private Date getExpirationDate(long time) {
-        return new Date(System.currentTimeMillis() + (time * 1000));
-    }
+  private Date getExpirationDate(long time) {
+    return new Date(System.currentTimeMillis() + (time * 1000));
+  }
 }

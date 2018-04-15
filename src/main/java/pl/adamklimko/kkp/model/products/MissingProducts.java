@@ -6,4 +6,5 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "missing_products")
 public class MissingProducts extends Products {
+
 }

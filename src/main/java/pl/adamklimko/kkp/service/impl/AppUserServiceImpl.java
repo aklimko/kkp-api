@@ -1,5 +1,8 @@
 package pl.adamklimko.kkp.service.impl;
 
+import static java.util.Collections.emptyList;
+
+import java.util.List;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,50 +13,47 @@ import pl.adamklimko.kkp.repository.AppUserRepository;
 import pl.adamklimko.kkp.service.AppUserService;
 import pl.adamklimko.kkp.util.UserUtil;
 
-import java.util.List;
-
-import static java.util.Collections.emptyList;
-
 @Service
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
-    private final AppUserRepository appUserRepository;
+  private final AppUserRepository appUserRepository;
 
-    public AppUserServiceImpl(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
-    }
+  public AppUserServiceImpl(AppUserRepository appUserRepository) {
+    this.appUserRepository = appUserRepository;
+  }
 
-    @Override
-    public AppUser find() {
-        return appUserRepository.findByUsername(UserUtil.getUsernameFromContext());
-    }
+  @Override
+  public AppUser find() {
+    return appUserRepository.findByUsername(UserUtil.getUsernameFromContext());
+  }
 
-    @Override
-    public AppUser findByUsername(String username) {
-        return appUserRepository.findByUsername(username);
-    }
+  @Override
+  public AppUser findByUsername(String username) {
+    return appUserRepository.findByUsername(username);
+  }
 
-    @Override
-    public List<AppUser> findAll() {
-        return appUserRepository.findAll();
-    }
+  @Override
+  public List<AppUser> findAll() {
+    return appUserRepository.findAll();
+  }
 
-    @Override
-    public AppUser findById(long id) {
-        return appUserRepository.findOne(id);
-    }
+  @Override
+  public AppUser findById(long id) {
+    return appUserRepository.findById(id)
+        .orElse(null);
+  }
 
-    @Override
-    public void save(AppUser user) {
-        appUserRepository.save(user);
-    }
+  @Override
+  public void save(AppUser user) {
+    appUserRepository.save(user);
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final AppUser appUser = appUserRepository.findByUsername(username);
-        if (appUser == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new User(appUser.getUsername(), appUser.getPassword(), emptyList());
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    final AppUser appUser = appUserRepository.findByUsername(username);
+    if (appUser == null) {
+      throw new UsernameNotFoundException(username);
     }
+    return new User(appUser.getUsername(), appUser.getPassword(), emptyList());
+  }
 }

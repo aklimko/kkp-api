@@ -6,4 +6,5 @@ import pl.adamklimko.kkp.model.products.Products;
 
 @Repository
 public interface ProductsRepository extends CrudRepository<Products, Long> {
+
 }
