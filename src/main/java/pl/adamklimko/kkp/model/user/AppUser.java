@@ -13,9 +13,9 @@ import pl.adamklimko.kkp.model.Views;
 import pl.adamklimko.kkp.model.products.BoughtProducts;
 import pl.adamklimko.kkp.model.rooms.CleanedRooms;
 
+@Data
 @Entity
-public @Data
-class AppUser {
+public class AppUser {
 
   @JsonIgnore
   @Id

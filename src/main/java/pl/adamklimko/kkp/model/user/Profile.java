@@ -9,9 +9,9 @@ import javax.persistence.Id;
 import lombok.Data;
 import pl.adamklimko.kkp.model.Views;
 
+@Data
 @Entity
-public @Data
-class Profile {
+public class Profile {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

@@ -13,14 +13,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import lombok.Builder;
 import lombok.Data;
 import pl.adamklimko.kkp.model.products.ProductsEntry;
 import pl.adamklimko.kkp.model.rooms.RoomsEntry;
 import pl.adamklimko.kkp.model.user.AppUser;
 
+@Data
+@Builder
 @Entity
-public @Data
-class History {
+public class History {
 
   @JsonIgnore
   @GeneratedValue(strategy = GenerationType.AUTO)

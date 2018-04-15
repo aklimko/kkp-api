@@ -11,12 +11,12 @@ public class HistoryUtil {
 
   public static History getHistoryEntry(AppUser user, ProductsEntry products, RoomsEntry rooms,
       ActionType actionType) {
-    final History historyEntry = new History();
-    historyEntry.setTime(LocalDateTime.now());
-    historyEntry.setUser(user);
-    historyEntry.setProductsEntry(products);
-    historyEntry.setRoomsEntry(rooms);
-    historyEntry.setActionType(actionType);
-    return historyEntry;
+    return History.builder()
+        .time(LocalDateTime.now())
+        .user(user)
+        .productsEntry(products)
+        .roomsEntry(rooms)
+        .actionType(actionType)
+        .build();
   }
 }

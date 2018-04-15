@@ -10,9 +10,9 @@ import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import pl.adamklimko.kkp.model.Views;
 
+@Data
 @MappedSuperclass
-public @Data
-class Rooms {
+public class Rooms {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
