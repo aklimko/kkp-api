@@ -26,14 +26,17 @@ repositories {
 
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb"
+    implementation "org.springframework.boot:spring-boot-starter-security"
 
-    implementation 'io.jsonwebtoken:jjwt:0.7.0'
+    implementation "org.hibernate.validator:hibernate-validator:6.0.9.Final"
+    implementation "org.apache.tomcat.embed:tomcat-embed-el:9.0.7"
 
-    compileOnly 'org.projectlombok:lombok:1.16.20'
+    implementation "io.jsonwebtoken:jjwt:0.7.0"
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly "org.projectlombok:lombok:1.16.20"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
 }
