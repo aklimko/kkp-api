@@ -1,18 +1,16 @@
 package pl.adamklimko.kkp.service;
 
 import javax.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.adamklimko.kkp.dto.UserDto;
-import pl.adamklimko.kkp.entity.UserEntity;
 import pl.adamklimko.kkp.repository.UserRepository;
 
 @Service
 public class UserService {
 
-  private UserRepository userRepository;
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final UserRepository userRepository;
+  private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
     this.userRepository = userRepository;

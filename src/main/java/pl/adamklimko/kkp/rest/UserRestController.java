@@ -1,7 +1,6 @@
 package pl.adamklimko.kkp.rest;
 
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +14,7 @@ import pl.adamklimko.kkp.service.UserService;
 @RequestMapping("/users")
 public class UserRestController {
 
-  private UserService userService;
+  private final UserService userService;
 
   public UserRestController(UserService userService) {
     this.userService = userService;
