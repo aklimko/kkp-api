@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.adamklimko.kkp.dto.UserDto;
 
@@ -18,7 +19,9 @@ public class UserEntity {
   private String id;
 
   @NotNull
-  @Pattern(regexp = "[^\\W_][\\w-]{2,31}")
+  @Pattern(regexp = "[^\\W_][\\w-]+")
+  @Size(min = 3, max = 32)
+  @Indexed(unique = true)
   private String username;
 
   @NotNull

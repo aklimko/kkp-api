@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import pl.adamklimko.kkp.error.exceptions.UsernameAlreadyExists;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -23,7 +25,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     ex.getBindingResult().getGlobalErrors().forEach(error ->
         errors.add(error.getObjectName() + ": " + error.getDefaultMessage()));
 
-    final ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, errors);
-    return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
+    ApiError apiError = new ApiError(errors);
+    return handleExceptionInternal(ex, apiError, headers, HttpStatus.BAD_REQUEST, request);
+  }
+
+  @ExceptionHandler({ UsernameAlreadyExists.class })
+  public ResponseEntity<Object> handleUsernameAlreadyExists(UsernameAlreadyExists ex) {
+    //TODO: Fix unique username error handling
+    return new ResponseEntity<>(ex, ex.getStatus());
   }
 }

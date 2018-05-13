@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 import pl.adamklimko.kkp.entity.UserEntity;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class UserDto {
 
   @NotNull
-  @Pattern(regexp = "[^\\W_][\\w-]", message = "must contain letters, numbers and '-', must start with letter or number")
+  @Pattern(regexp = "[^\\W_][\\w-]+", message = "can contain only letters, numbers and '-', must start with letter or number")
   @Size(min = 3, max = 32)
   private String username;
 
