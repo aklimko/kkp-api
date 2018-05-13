@@ -1,6 +1,7 @@
 package pl.adamklimko.kkp.error;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import pl.adamklimko.kkp.error.exceptions.UsernameAlreadyExists;
+import pl.adamklimko.kkp.error.exceptions.UserNotFoundException;
+import pl.adamklimko.kkp.error.exceptions.UsernameAlreadyExistsException;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -29,9 +31,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(ex, apiError, headers, HttpStatus.BAD_REQUEST, request);
   }
 
-  @ExceptionHandler({ UsernameAlreadyExists.class })
-  public ResponseEntity<Object> handleUsernameAlreadyExists(UsernameAlreadyExists ex) {
+  @ExceptionHandler({ UsernameAlreadyExistsException.class })
+  public ResponseEntity<Object> handleUsernameAlreadyExists(UsernameAlreadyExistsException ex) {
     //TODO: Fix unique username error handling
     return new ResponseEntity<>(ex, ex.getStatus());
+  }
+
+  @ExceptionHandler({ UserNotFoundException.class })
+  public ResponseEntity<Object> handleUserNotFound(UserNotFoundException ex) {
+    ApiError error = new ApiError(Collections.singletonList(ex.getMessage()));
+    return new ResponseEntity<>(error, ex.getStatus());
   }
 }
