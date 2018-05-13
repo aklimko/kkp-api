@@ -1,6 +1,7 @@
 package pl.adamklimko.kkp.rest;
 
 import javax.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,15 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.adamklimko.kkp.dto.UserDto;
 import pl.adamklimko.kkp.service.UserService;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
 
   private final UserService userService;
-
-  public UserRestController(UserService userService) {
-    this.userService = userService;
-  }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
