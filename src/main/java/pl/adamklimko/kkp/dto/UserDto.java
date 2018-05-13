@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.adamklimko.kkp.entity.UserEntity;
 
+import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX_MESSAGE;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,7 +18,7 @@ import pl.adamklimko.kkp.entity.UserEntity;
 public class UserDto {
 
   @NotNull
-  @Pattern(regexp = "[^\\W_][\\w-]+", message = "can contain only letters, numbers and '-', must start with letter or number")
+  @Pattern(regexp = "[^\\W_][\\w-]+", message = NAME_REGEX_MESSAGE)
   @Size(min = 3, max = 32)
   private String username;
 
