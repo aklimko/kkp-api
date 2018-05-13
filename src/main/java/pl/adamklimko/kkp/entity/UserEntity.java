@@ -14,7 +14,7 @@ import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX_MESSAGE;
 
 @Data
 @Builder
-@Document(collection = "Users")
+@Document(collection = "users")
 public class UserEntity {
 
   @Id
