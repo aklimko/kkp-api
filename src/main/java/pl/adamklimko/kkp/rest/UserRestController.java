@@ -17,14 +17,13 @@ public class UserRestController {
 
   private UserService userService;
 
-  @Autowired
-  public void setUserService(UserService userService) {
+  public UserRestController(UserService userService) {
     this.userService = userService;
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public void createUser(@Valid @RequestBody UserDto user) {
-    userService.insertUser(user.toEntity());
+    userService.insertUser(user);
   }
 }
