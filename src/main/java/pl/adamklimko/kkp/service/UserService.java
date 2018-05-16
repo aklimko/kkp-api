@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.adamklimko.kkp.dto.UserDto;
-import pl.adamklimko.kkp.entity.UserEntity;
+import pl.adamklimko.kkp.model.entity.UserEntity;
 import pl.adamklimko.kkp.error.exceptions.UserNotFoundException;
 import pl.adamklimko.kkp.repository.UserRepository;
 

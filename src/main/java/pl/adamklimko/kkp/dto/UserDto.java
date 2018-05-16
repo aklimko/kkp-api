@@ -11,7 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.adamklimko.kkp.entity.UserEntity;
+import pl.adamklimko.kkp.model.entity.UserEntity;
 
 @Getter
 @Setter

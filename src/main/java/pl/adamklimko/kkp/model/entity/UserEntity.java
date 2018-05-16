@@ -1,7 +1,5 @@
-package pl.adamklimko.kkp.entity;
+package pl.adamklimko.kkp.model.entity;
 
-
-import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -10,29 +8,33 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import pl.adamklimko.kkp.model.UserData;
+import pl.adamklimko.kkp.dto.UserDto;
 
 import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX;
 import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX_MESSAGE;
 
 @Data
 @Builder
-@Document(collection = "groups")
-public class GroupEntity {
+@Document(collection = "users")
+public class UserEntity {
 
   @Id
   private String id;
 
   @NotNull
   @Pattern(regexp = NAME_REGEX, message = NAME_REGEX_MESSAGE)
-  @Size(min = 3, max = 24)
+  @Size(min = 3, max = 32)
   @Indexed(unique = true)
-  private String name;
+  private String username;
 
   @NotNull
-  private List<UserData> users;
+  @Size(min = 6, max = 64)
+  private String password;
 
-  private List<String> products;
-
-  private List<String> productsMissing;
+  public UserDto toDto() {
+    return UserDto.builder()
+        .username(username)
+        .password(password)
+        .build();
+  }
 }
