@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.adamklimko.kkp.model.UserData;
 
+import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX;
 import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX_MESSAGE;
 
 @Data
@@ -23,7 +24,7 @@ public class GroupEntity {
   private String id;
 
   @NotNull
-  @Pattern(regexp = "[^\\W_][\\w-]+", message = NAME_REGEX_MESSAGE)
+  @Pattern(regexp = NAME_REGEX, message = NAME_REGEX_MESSAGE)
   @Size(min = 3, max = 24)
   @Indexed(unique = true)
   private String name;
