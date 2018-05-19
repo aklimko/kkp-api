@@ -3,18 +3,22 @@ package pl.adamklimko.kkp.model.entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import pl.adamklimko.kkp.dto.UserDto;
+import pl.adamklimko.kkp.model.dto.UserDto;
 
 import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX;
 import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX_MESSAGE;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "users")
 public class UserEntity {
 
