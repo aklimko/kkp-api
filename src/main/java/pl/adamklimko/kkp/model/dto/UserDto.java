@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.index.Indexed;
-import pl.adamklimko.kkp.model.entity.UserEntity;
 
 @Getter
 @Setter
@@ -30,11 +29,4 @@ public class UserDto {
   @NotNull
   @Size(min = 6, max = 64)
   private String password;
-
-  public UserEntity toEntity() {
-    return UserEntity.builder()
-        .username(username)
-        .password(password)
-        .build();
-  }
 }
