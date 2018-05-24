@@ -1,4 +1,4 @@
-package pl.adamklimko.kkp.security;
+package pl.adamklimko.kkp.config;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
