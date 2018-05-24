@@ -8,5 +8,7 @@ public class UserData {
 
   private String username;
 
+  private String role;
+
   private Map<String, Long> productsBought;
 }

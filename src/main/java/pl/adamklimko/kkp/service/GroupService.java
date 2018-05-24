@@ -9,4 +9,5 @@ import pl.adamklimko.kkp.repository.GroupRepository;
 public class GroupService {
 
   private GroupRepository groupRepository;
+
 }
