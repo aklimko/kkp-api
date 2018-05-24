@@ -4,6 +4,7 @@ import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX;
 import static pl.adamklimko.kkp.util.ValidationStrings.NAME_REGEX_MESSAGE;
 
 import java.util.List;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,6 +25,7 @@ public class GroupDto {
   @Size(min = 3, max = 24)
   private String name;
 
+  @NotEmpty
   private List<UserData> users;
 
   private List<String> products;
