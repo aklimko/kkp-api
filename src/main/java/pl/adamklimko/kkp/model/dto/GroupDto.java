@@ -28,7 +28,7 @@ public class GroupDto {
   @NotEmpty
   private List<UserData> users;
 
-  private List<String> products;
+  private List<@Size(min = 3, max = 18) String> products;
 
   private List<String> productsMissing;
 }
