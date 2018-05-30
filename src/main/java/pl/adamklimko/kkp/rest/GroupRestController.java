@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.adamklimko.kkp.model.dto.GroupCreateDto;
 import pl.adamklimko.kkp.model.dto.GroupDto;
 import pl.adamklimko.kkp.service.GroupService;
 
@@ -24,7 +25,7 @@ public class GroupRestController {
   }
 
   @PostMapping()
-  public void createGroup(@Valid @RequestBody GroupDto group) {
+  public void createGroup(@Valid @RequestBody GroupCreateDto group) {
 
   }
 }
